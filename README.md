@@ -19,20 +19,23 @@ A simple React Native weather application that fetches and displays weather data
 - Jest and React Native Testing Library for testing
 
 ## Project Structure
-
+<pre lang="text">
 weather-app/
-├── tests/           # Test files
-├── assets/              # Images, fonts, and other static assets
-├── components/          # Reusable UI components
-├── constants/           # App constants like colors
+├── assets/              # Static assets like images, fonts, etc.
+├── components/          # Reusable UI components (e.g., buttons, cards)
+├── constants/           # Application-wide constants (e.g., colors, sizes)
+├── tests/               # Unit and integration test files
+
 ├── src/
-│   ├── components/      # App-specific components
-│   ├── redux/           # Redux store, slices, and actions
-│   ├── screens/         # Screen components
-│   ├── services/        # API services
-│   ├── styles/          # Styling files
-│   ├── types/           # TypeScript type definitions
-│   └── utils/           # Utility functions
+│   ├── components/      # Screen-specific components
+│   ├── redux/           # Redux store configuration, slices, and actions
+│   ├── screens/         # All screen components (e.g., HomeScreen, DetailsScreen)
+│   ├── services/        # API calls and external service handlers
+│   ├── styles/          # Global and modular stylesheets
+│   ├── types/           # TypeScript type definitions and interfaces
+│   └── utils/           # Helper and utility functions
+</pre>   
+
 
 
 ## Architecture Decisions
