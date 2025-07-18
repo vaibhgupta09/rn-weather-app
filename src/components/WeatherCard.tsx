@@ -7,6 +7,11 @@ interface WeatherCardProps {
   condition: string;
   iconCode: string;
   isDark?: boolean;
+  humidity?: number;
+  pressure?: number;
+  windSpeed?: number;
+  windDirection?: string;
+  description?: string;
 }
 
 const WeatherCard: React.FC<WeatherCardProps> = ({
@@ -14,7 +19,12 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
   temperature,
   condition,
   iconCode,
-  isDark = false
+  isDark = false,
+  humidity,
+  pressure,
+  windSpeed,
+  windDirection,
+  description,
 }) => {
   const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
   const roundedTemp = Math.round(temperature);
@@ -38,8 +48,28 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
           testID="weather-icon"
         />
       <Text style={[styles.condition, isDark ? styles.darkText : styles.lightText]}>
-        {condition}
+        {description}
       </Text>
+      <View style={styles.detailsContainer}>
+        {humidity !== undefined && (
+          <Text style={[styles.detailText, isDark ? styles.darkText : styles.lightText]}>
+            Humidity: {humidity}%
+          </Text>
+        )}
+        
+        {windSpeed !== undefined && (
+          <Text style={[styles.detailText, isDark ? styles.darkText : styles.lightText]}>
+            Wind: {windSpeed} m/s {windDirection || ''}
+          </Text>
+        )}
+        
+        {pressure !== undefined && (
+          <Text style={[styles.detailText, isDark ? styles.darkText : styles.lightText]}>
+            Pressure: {pressure} hPa
+          </Text>
+        )}
+      </View>
+
     </View>
   );
 };
@@ -63,7 +93,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(50, 50, 50, 0.8)',
   },
   cityName: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
     marginBottom: 10,
   },
@@ -77,10 +107,10 @@ const styles = StyleSheet.create({
   },
   temperature: {
     fontSize: 60,
-    fontWeight:'300'
+    fontWeight:'500'
   },
   condition: {
-    fontSize: 22,
+    fontSize: 18,
   },
   lightText: {
     color: '#333',
@@ -88,6 +118,18 @@ const styles = StyleSheet.create({
   darkText: {
     color: '#fff',
   },
+  detailsContainer: {
+    width: '100%',
+    marginTop: 10,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#ea6e49',
+  },
+  detailText: {
+    fontSize: 16,
+    marginVertical: 4,
+  },
+
 });
 
 export default WeatherCard;

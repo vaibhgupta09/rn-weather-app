@@ -33,6 +33,11 @@ const HomeScreen = (): JSX.Element => {
     handleFetch();
     Keyboard.dismiss();
   };
+  const getWindDirection = (degrees: number): string => {
+    const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+    const index = Math.round(degrees / 22.5) % 16;
+    return directions[index];
+  };
 
   const isDark = theme === 'dark';
   return (
@@ -50,13 +55,19 @@ const HomeScreen = (): JSX.Element => {
           <>
             {data ? (
               <BackgroundGrid icon={data.weather[0].icon}>
-                <WeatherCard
-                  cityName={data.name}
-                  temperature={data.main.temp}
-                  condition={data.weather[0].main}
-                  iconCode={data.weather[0].icon}
-                  isDark={isDark}
-                />
+               <WeatherCard
+          cityName={data.name}
+          temperature={data.main.temp}
+          condition={data.weather[0].main}
+          iconCode={data.weather[0].icon}
+          isDark={isDark}
+          // Add new props
+          description={data.weather[0].description}
+          humidity={data.main.humidity}
+          pressure={data.main.pressure}
+          windSpeed={data.wind.speed}
+          windDirection={getWindDirection(data.wind.deg)}
+        />
               </BackgroundGrid>
             ) : <View style={styles.emptyView} testID="empty-view">
               {error ? <Text style={styles.error} testID="error-message">{error}😭☹️</Text>:<View testID="welcome-view">
